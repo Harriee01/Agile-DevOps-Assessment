@@ -96,7 +96,7 @@ public class BookController {
         String message;
         if (results.isEmpty()) {
             // US2 acceptance criteria: "No results found" message when applicable
-            message = "Sorry, no results found for '" + keyword.trim() + "'. Try a different title.";
+            message = "No results found for '" + keyword.trim() + "'. Try a different title.";
         } else {
             // US6: success message tells the user how many results matched
             message = "Found " + results.size() + " book(s) matching '" + keyword.trim() + "'.";
