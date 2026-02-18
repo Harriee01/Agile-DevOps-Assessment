@@ -1,0 +1,324 @@
+/* Box-sizing border-box makes width calculations predictable */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Base font, line height, and background for the whole page */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f0f4f8;  /* Light blue-grey – easy on teen eyes */
+    color: #2d3748;              /* Dark grey – readable but softer than black */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;     /* Pushes footer to the bottom */
+}
+
+/* ================================================================
+   HEADER
+================================================================ */
+
+.site-header {
+    background: linear-gradient(135deg, #6b46c1, #9f7aea); /* Purple gradient – energetic */
+    color: #ffffff;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.site-logo {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.site-tagline {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin-top: 0.25rem;
+}
+
+/* ================================================================
+   MAIN CONTENT WRAPPER
+================================================================ */
+
+.main-content {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex: 1;                    /* Fills remaining vertical space above footer */
+}
+
+/* ================================================================
+   SECTION TITLES
+================================================================ */
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #553c9a;             /* Purple to echo header */
+    border-bottom: 2px solid #9f7aea;
+    padding-bottom: 0.4rem;
+}
+
+/* ================================================================
+   SEARCH SECTION  (US2)
+================================================================ */
+
+.search-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Flex row containing input + buttons */
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;            /* Wrap on small screens */
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;                    /* Takes remaining horizontal space */
+    min-width: 180px;
+    padding: 0.6rem 1rem;
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+/* Highlight border when the input has keyboard focus */
+.search-input:focus {
+    border-color: #9f7aea;
+}
+
+/* ================================================================
+   BUTTONS
+================================================================ */
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Subtle scale-down on click for tactile feel */
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* Primary button: purple – main call to action */
+.btn-primary {
+    background-color: #6b46c1;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #553c9a;
+}
+
+/* Secondary button: light grey – secondary action (clear) */
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e0;
+}
+
+/* ================================================================
+   FEEDBACK MESSAGE  (US6)
+================================================================ */
+
+.feedback-message {
+    margin-top: 0.9rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Success state: green tones */
+.feedback-message.success {
+    background-color: #c6f6d5;  /* Light green */
+    color: #276749;             /* Dark green text */
+    border-left: 4px solid #38a169;
+}
+
+/* Warning state: amber tones – used for "no results" */
+.feedback-message.warning {
+    background-color: #fefcbf;  /* Light yellow */
+    color: #744210;             /* Dark amber text */
+    border-left: 4px solid #d69e2e;
+}
+
+/* Error state: red tones – used for bad input */
+.feedback-message.error {
+    background-color: #fed7d7;  /* Light red */
+    color: #742a2a;             /* Dark red text */
+    border-left: 4px solid #e53e3e;
+}
+
+/* Utility: hide elements without removing them from the DOM */
+.hidden {
+    display: none !important;
+}
+
+/* ================================================================
+   LOADING INDICATOR
+================================================================ */
+
+.loading-indicator {
+    text-align: center;
+    padding: 2rem;
+    color: #718096;
+    font-style: italic;
+    font-size: 1rem;
+}
+
+/* ================================================================
+   BOOK GRID  (US1)
+================================================================ */
+
+/* Responsive CSS Grid: at least 240px wide columns, fills available width */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+}
+
+/* ================================================================
+   BOOK CARD
+================================================================ */
+
+.book-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-top: 4px solid #9f7aea;  /* Purple accent stripe at top of card */
+}
+
+/* Card lifts on hover to signal interactivity */
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.book-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2d3748;
+    /* Clamp title to two lines to keep cards uniform height */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.book-author {
+    font-size: 0.9rem;
+    color: #718096;             /* Muted grey for secondary info */
+}
+
+/* Availability badge sits at the bottom of the card */
+.book-availability {
+    margin-top: auto;           /* Push badge to bottom of flex column */
+    padding-top: 0.6rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;      /* Fully rounded pill shape */
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Green badge for available books */
+.badge-available {
+    background-color: #c6f6d5;
+    color: #276749;
+}
+
+/* Red badge for borrowed / unavailable books */
+.badge-unavailable {
+    background-color: #fed7d7;
+    color: #742a2a;
+}
+
+/* ================================================================
+   EMPTY STATE  (US2 – no results)
+================================================================ */
+
+.empty-state {
+    grid-column: 1 / -1;       /* Span all columns in the grid */
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #718096;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state-text {
+    font-size: 1rem;
+}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+
+.site-footer {
+    background-color: #2d3748;
+    color: #a0aec0;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    margin-top: auto;
+}
+
+/* ================================================================
+   RESPONSIVE BREAKPOINTS
+================================================================ */
+
+/* On very small screens, stack the search bar vertically */
+@media (max-width: 480px) {
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-input,
+    .btn {
+        width: 100%;
+    }
+
+    .site-logo {
+        font-size: 1.5rem;
+    }
+}
