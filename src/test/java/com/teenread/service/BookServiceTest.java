@@ -25,7 +25,6 @@ import static org.mockito.Mockito.*;
  * @ExtendWith(MockitoExtension.class) enables Mockito annotations in JUnit 5.
  */
 @ExtendWith(MockitoExtension.class)
-
 public class BookServiceTest {
 
     /** Mockito creates a fake BookRepository – no real data loaded */
