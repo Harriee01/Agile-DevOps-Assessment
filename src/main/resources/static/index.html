@@ -1,10 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <!-- Responsive viewport for mobile-friendly display -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeenRead Hub</title>
+
+    <!-- Link to our external stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
+<!-- ============================================================
+     HEADER / HERO BANNER
+     Branding area at the top of every page
+============================================================ -->
+<header class="site-header">
+    <div class="header-inner">
+        <!-- Site logo / name -->
+        <h1 class="site-logo">📚 TeenRead Hub</h1>
+        <!-- Tagline reinforces the product vision -->
+        <p class="site-tagline">Your safe space to discover and borrow books.</p>
+    </div>
+</header>
+
+<!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+<main class="main-content">
+
+    <!-- --------------------------------------------------------
+         SEARCH SECTION  (US2 + US6)
+         Search input and button; results/feedback shown below
+    -------------------------------------------------------- -->
+    <section class="search-section" aria-label="Search for books">
+        <h2 class="section-title">Find a Book</h2>
+
+        <div class="search-bar">
+            <!-- Text input for the search keyword -->
+            <input
+                    type="text"
+                    id="search-input"
+                    class="search-input"
+                    placeholder="Search by title…"
+                    aria-label="Search by book title"
+                    autocomplete="off"
+            />
+            <!-- Trigger search on click (JS handles this) -->
+            <button
+                    id="search-btn"
+                    class="btn btn-primary"
+                    aria-label="Search button">
+                Search
+            </button>
+            <!-- Clear button resets results and shows the full catalogue -->
+            <button
+                    id="clear-btn"
+                    class="btn btn-secondary"
+                    aria-label="Clear search">
+                Clear
+            </button>
+        </div>
+
+        <!-- US6: feedback message shown after search actions -->
+        <!-- aria-live="polite" announces changes to screen readers -->
+        <div id="feedback-message"
+             class="feedback-message hidden"
+             role="alert"
+             aria-live="polite">
+        </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         BOOK LIST SECTION  (US1)
+         Cards generated dynamically by app.js
+    -------------------------------------------------------- -->
+    <section class="books-section" aria-label="Book catalogue">
+        <h2 class="section-title">Available Books</h2>
+
+        <!-- Loading spinner shown while fetch() is in flight -->
+        <div id="loading-indicator"
+             class="loading-indicator"
+             aria-busy="true"
+             aria-label="Loading books">
+            Loading books…
+        </div>
+
+        <!-- Grid of book cards rendered by JavaScript -->
+        <div id="book-list" class="book-grid" aria-live="polite"></div>
+    </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+    <p>© 2024 TeenRead Hub – Happy Reading! 📖</p>
+</footer>
+
+<!-- Load our JavaScript module last so the DOM is ready -->
+<script src="js/app.js"></script>
 </body>
 </html>
