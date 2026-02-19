@@ -5,20 +5,23 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * In-memory repository that acts as the sole data store for Sprint 1.
- * No database, no JPA – just a plain Java List pre-loaded with seed data.
+ * In-memory repository for the book catalogue.
  *
- * Annotated with @Repository so Spring registers it as a bean and
- * so that Spring can translate any data-access exceptions if needed.
+ * Sprint 1: findAll, searchByTitle
+ *  * Sprint 2: findById, save (to toggle availability flag)
+ *  *
+ *  * The internal list is the single source of truth for book state.
+ *  * All mutations (borrow → available=false) go through save().
  */
 
 @Repository
 public class BookRepository {
     // The master list of all books held in JVM memory.
-    // Initialised once when the Spring context starts.
+    // Initialised once in the constructor; mutated via save().
     private final List<Book> books = new ArrayList<>();
 
     /**
@@ -53,12 +56,50 @@ public class BookRepository {
     }
 
     /**
-     * Case-insensitive keyword search against book titles.
-     * Uses Java Stream filter + String.contains for simplicity.
+     * Finds a single book by its unique id.
+     * Returns Optional.empty() if no book with that id exists.
      *
-     * @param keyword the search term (partial or full title)
+     * Used by BorrowService before marking a book unavailable (US3).
+     *
+     * @param id the book id to look up
+     * @return Optional wrapping the found Book, or empty
+     */
+
+    public Optional<Book> findById(Long id) {
+        return books.stream()
+                .filter(b -> b.getId().equals(id))
+                .findFirst();
+    }
+
+    /**
+     * Persists changes to an existing book back into the in-memory list.
+     *
+     * Finds the book by id and replaces it in-place.
+     * No-op if the book id is not found (should not happen in normal flow).
+     *
+     * Used by BorrowService to flip available → false after borrowing (US3).
+     *
+     * @param updatedBook the book with mutated state to save
+     */
+
+    public void save(Book updatedBook) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getId().equals(updatedBook.getId())) {
+                // Replace the old Book object at this index with the updated one
+                books.set(i, updatedBook);
+                return;
+            }
+        }
+        // If we reach here the book was not found – log-worthy in a real system
+    }
+
+    /**
+     * Case-insensitive partial-title search using Java Streams.
+     *
+     * @param keyword partial or full title (already trimmed by the service layer)
      * @return list of books whose title contains the keyword
      */
+
     public List<Book> searchByTitle(String keyword) {
         // Normalise keyword to lower-case once, then compare each title
         String lowerKeyword = keyword.toLowerCase();
