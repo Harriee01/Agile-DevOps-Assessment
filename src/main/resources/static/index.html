@@ -96,6 +96,20 @@
         <div id="my-books-list" class="book-grid" aria-live="polite"></div>
     </section>
 
+    <!-- ========================================================
+            RECOMMENDATIONS PANEL – US5
+       ======================================================== -->
+    <section id="recommendations-panel" class="panel hidden" aria-label="Book recommendations">
+        <h2 class="section-title">Picks for You 🌟</h2>
+        <p class="section-subtitle">Books we think you'll love:</p>
+        <!-- Loading indicator for recommendations fetch -->
+        <div id="rec-loading" class="loading-indicator hidden">
+            Finding recommendations…
+        </div>
+        <!-- Recommendation cards injected here by recommendations.js -->
+        <div id="rec-list" class="book-grid" aria-live="polite"></div>
+    </section>
+
 </main>
 
 <!-- ============================================================
@@ -105,7 +119,12 @@
     <p>© 2024 TeenRead Hub – Happy Reading! 📖</p>
 </footer>
 
-<!-- Load our JavaScript module last so the DOM is ready -->
+<!-- Scripts loaded last so the DOM is fully parsed before JS runs -->
+<!-- app.js: navigation, browse, search (US1, US2, US6) -->
 <script src="js/app.js"></script>
+<!-- borrow.js: borrow action + My Books view (US3, US4) -->
+<script src="js/borrow.js"></script>
+<!-- recommendations.js: picks section (US5) -->
+<script src="js/recommendations.js"></script>
 </body>
 </html>
