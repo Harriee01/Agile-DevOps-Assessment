@@ -1,0 +1,42 @@
+name: TeenRead Hub CI – Sprint 1
+on:
+    push:
+      branches: [ main ]
+    pull_request:
+      branches: [ main ]
+
+jobs:
+    build-test-package:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Java 21
+          uses: actions/setup-java@v4
+          with:
+            java-version: '21'
+            distribution: 'temurin'
+
+        - name: Cache Maven packages
+          uses: actions/cache@v3
+          with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
+
+        - name: Stage 1 – Build (compile)
+          run: mvn clean compile -B
+
+        - name: Stage 2 – Test
+          run: mvn test -B
+
+        - name: Stage 3 – Package
+          run: mvn package -DskipTests -B
+
+        - name: Upload JAR artefact
+          uses: actions/upload-artifact@v4
+          with:
+            name: teenread-hub-sprint1-jar
+            path: target/*.jar
