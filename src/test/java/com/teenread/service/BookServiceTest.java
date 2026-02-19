@@ -1,4 +1,4 @@
-// path: src/test/java/com/teenread/service/BookServiceTest.java
+
 package com.teenread.service;
 
 import com.teenread.model.Book;
