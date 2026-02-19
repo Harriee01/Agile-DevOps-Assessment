@@ -1,12 +1,12 @@
 # TeenRead Hub – Product Document
 
-## 1. Product Vision
+##  Product Vision
 
 **TeenRead Hub** is a simple, safe e-library that helps teenagers easily discover, borrow, and manage books online, encouraging consistent reading through a clean and intuitive experience.
 
 ---
 
-## 2–5. Product Backlog
+##  Product Backlog
 
 ### User Stories with Acceptance Criteria, Priority, and Story Points
 
@@ -21,7 +21,7 @@
 
 ---
 
-## 6. Definition of Done (DoD)
+##  Definition of Done (DoD)
 
 - User story acceptance criteria are fully met
 - Feature is implemented and works in the test environment
