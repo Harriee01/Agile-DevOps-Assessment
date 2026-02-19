@@ -53,12 +53,15 @@ public class BookService {
     // ---------------------------------------------------------------
 
     /**
-     * Searches for books whose title contains the given keyword.
-     * Trims whitespace from the keyword before delegating.
+     * Searches books by partial, case-insensitive title match.
      *
-     * @param keyword partial or full title to search for (must not be null)
-     * @return list of matching Book objects; empty list if none match
-     * @throws IllegalArgumentException if keyword is null or blank
+     * Edge cases (retro improvement – explicit guards):
+     *   - null keyword        → IllegalArgumentException
+     *   - blank-only keyword  → IllegalArgumentException
+     *
+     * @param keyword the search term
+     * @return matching books (empty list if none match)
+     * @throws IllegalArgumentException for null or blank keyword
      */
     public List<Book> searchByTitle(String keyword) {
         // Guard: reject null or blank keywords to prevent meaningless queries

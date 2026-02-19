@@ -45,10 +45,10 @@ public class BookController {
 
     /**
      * GET /api/books
-     *
+     * <p>
      * Returns the full book catalogue as a JSON array.
      * Frontend calls this on page load to populate the book list.
-     *
+     * <p>
      * Response 200 OK with body: [ { id, title, author, available }, … ]
      */
     @GetMapping
@@ -61,23 +61,18 @@ public class BookController {
     }
 
     // ---------------------------------------------------------------
-    // US2 – Search books by title
+    // US2 + US6 – Search and feedback
     // ---------------------------------------------------------------
 
     /**
      * GET /api/books/search?keyword=…
+     * <p>
+     * Response 200: { "results": [...], "message": "Found X book(s)…" }
+     * Response 400: { "message": "Please enter a search term." }
      *
-     * Accepts a query parameter 'keyword' and returns matching books.
-     * Also returns a user-facing feedback message (US6 integration).
-     *
-     * Response 200 OK with body:
-     *   { "results": [...], "message": "Found X book(s) matching '…'" }
-     *
-     * Response 400 Bad Request if keyword is missing or blank:
-     *   { "message": "Please enter a search term." }
-     *
-     * @param keyword the search term provided by the user via query string
+     * @param keyword partial title to match (query parameter, optional)
      */
+
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> searchBooks(
             @RequestParam(required = false) String keyword) {
@@ -93,22 +88,10 @@ public class BookController {
         List<Book> results = bookService.searchByTitle(keyword);
 
         // --- US6: result feedback message ---
-        String message;
-        if (results.isEmpty()) {
-            // US2 acceptance criteria: "No results found" message when applicable
-            message = "No results found for '" + keyword.trim() + "'. Try a different title.";
-        } else {
-            // US6: success message tells the user how many results matched
-            message = "Found " + results.size() + " book(s) matching '" + keyword.trim() + "'.";
-        }
+        String message = results.isEmpty()
+                ? "No results found for '" + keyword.trim() + "'. Try a different title."
+                : "Found " + results.size() + " book(s) matching '" + keyword.trim() + "'.";
 
-        // Build response map containing both the results list and the feedback message
-        Map<String, Object> response = Map.of(
-                "results", results,   // the matching books (may be empty)
-                "message", message    // human-readable feedback (US6)
-        );
-
-        // Return 200 OK in all cases where the keyword was valid
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(Map.of("results", results, "message", message));
     }
 }

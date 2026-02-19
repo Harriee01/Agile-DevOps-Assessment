@@ -1,5 +1,14 @@
 package com.teenread.model;
 
+/**
+ * Domain model representing a single book in the TeenRead Hub catalogue.
+ *
+ * Sprint 1: id, title, author, available
+ * Sprint 2: no new fields needed here – availability is toggled by BorrowService
+ *
+ * Plain Java class (no JPA annotations) – stored entirely in-memory.
+ */
+
 public class Book {
     // Unique identifier for each book
     private Long id;
@@ -10,7 +19,11 @@ public class Book {
     // Full name of the author
     private String author;
 
-    // true = available to borrow; false = already borrowed
+    /**
+     * Availability flag.
+     * true  = on the shelf, can be borrowed
+     * false = currently borrowed by a user
+     */
     private boolean available;
 
     // ---------------------------------------------------------------
@@ -21,7 +34,7 @@ public class Book {
     public Book() {}
 
     /**
-     * Convenience constructor used when pre-loading the in-memory list.
+     * Full constructor used when seeding the in-memory catalogue.
      *
      * @param id        unique book ID
      * @param title     book title
